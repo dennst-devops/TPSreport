@@ -163,9 +163,22 @@
       var xhr;
       TWEEN.start();
       
-      
+      //Vishnu 
+      var socket = io(); //1
+      displayPoints();
+      socket.on('new_eq_data', function (data) { //4
+          console.log("Hello"); //5
+
+          displayPoints();
+          //socket.emit('thankyou', { msg: 'Thank you for connecting me! -Client' }); //6
+        });
+    //vishnu
+    function displayPoints(){
+      //vishnu
+      console.log("In Display");
+      //vishnu
       xhr = new XMLHttpRequest();
-      xhr.open('GET', './population.json', true);
+      xhr.open('GET', './earth_quakes.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
