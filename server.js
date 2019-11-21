@@ -33,7 +33,8 @@ io.on('connection',(socket) =>{
 
                 tempObj.push(local_data[i].geometry['coordinates'][1]);
                 tempObj.push(local_data[i].geometry['coordinates'][0]);
-                tempObj.push(local_data[i]['properties'].mag);
+                // We divide the magnitude by 10 to get a number between 0 and 1
+                tempObj.push(local_data[i]['properties'].mag/10);
             }
             long_lat.push("long_lat");
             long_lat.push(tempObj);

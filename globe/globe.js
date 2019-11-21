@@ -207,7 +207,7 @@ uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world-color.jpg
       lng = data[i + 1];
       color = colorFnWrapper(data,i);
       size = data[i + 2];
-      size = size*10;
+      size = size*100;
       addPoint(lat, lng, size, color, subgeo);
     }
     if (opts.animated) {
