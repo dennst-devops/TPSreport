@@ -148,7 +148,7 @@ uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world-color.jpg
     renderer.domElement.style.position = 'absolute';
 
     container.appendChild(renderer.domElement);
-
+  
     container.addEventListener('mousedown', onMouseDown, false);
 
     container.addEventListener('mousewheel', onMouseWheel, false);
@@ -207,7 +207,7 @@ uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world-color.jpg
       lng = data[i + 1];
       color = colorFnWrapper(data,i);
       size = data[i + 2];
-      size = size*200;
+      size = size*100;
       addPoint(lat, lng, size, color, subgeo);
     }
     if (opts.animated) {
@@ -354,8 +354,8 @@ uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world-color.jpg
   function render() {
     zoom(curZoomSpeed);
 
-    rotation.x += (target.x - rotation.x) * 0.1;
-    rotation.y += (target.y - rotation.y) * 0.1;
+    rotation.x += (target.x - rotation.x) * 0.01;
+    rotation.y += (target.y - rotation.y) * 0.01;
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);

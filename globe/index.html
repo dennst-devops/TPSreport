@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>WebGL Globe</title>
+    <title>Real Time Earthquakes</title>
     <meta charset="utf-8">
     <style type="text/css">
       html {
@@ -62,7 +62,7 @@
         left: 20px;
         background-color: rgba(0,0,0,0.2);
         border-radius: 3px;
-        font: 20px Georgia;
+        font: 26px Roboto;
         padding: 10px;
       }
 
@@ -89,6 +89,7 @@
       }
 
       #ce {
+
         width: 107px;
         height: 55px;
         display: block;
@@ -106,21 +107,21 @@
   <div id="container"></div>
 
   <div id="info">
-    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data <a href="https://earthquake.usgs.gov/">USGS API</a>
   </div>
 
   <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
-    <span id="year1995" class="year">1995</span>
-    <span id="year2000" class="year">2000</span>
+    <span id="year1990" class="year"></span>
+    <span id="year1995" class="year"></span>
+    <span id="year2000" class="year"></span>
   </div>
 
   <div id="title">
-    World Population
+    Real Time Earthquakes
   </div>
 
   <a id="ce" href="http://www.chromeexperiments.com/globe">
-    <span>This is a Chrome Experiment</span>
+    <span>This is a Chrome Experimenteee</span>
   </a>
 
   <script type="text/javascript" src="./third-party/Detector.js"></script>
@@ -197,7 +198,8 @@
           }
         }
       };
-      
+
+      xhr.send(null);
     }
       // xhr = new XMLHttpRequest();
       // xhr.open('GET', './earth_quakes.json', true);
@@ -217,7 +219,6 @@
       //   }
       // };
       // xhr.send(null);
-      xhr.send(null);
     }
 
   </script>
