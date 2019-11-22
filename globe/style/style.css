@@ -39,6 +39,27 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
+#count {
+    font-size: 18px;
+    font: Roboto;
+    position: absolute;
+    bottom: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+    right: 600px;
+    left: 400px;
+    padding: 20px;
+    width: 270px;
+    height: 100px;
+    left: 20px;
+    top: 383px;
+    /* border-top: 1px solid rgba(255, 255, 255, 0.4); */
+}
+
+#EqCount{
+    font-size: 45px;
+}
+
 #currentInfo {
     width: 270px;
     position: absolute;
@@ -104,3 +125,4 @@ a:hover {
     left: 20px;
     background: url(../ce.png);
 }
+
