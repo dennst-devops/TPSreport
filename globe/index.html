@@ -57,7 +57,6 @@
         };
       };
 
-      var xhr;
       TWEEN.start();
 
       //Vishnu 
@@ -77,7 +76,7 @@
         //vishnu
         console.log("In Display");
         //vishnu
-        xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', './earth_quakes.json', true);
         xhr.onreadystatechange = function (e) {
           if (xhr.readyState === 4) {
@@ -110,9 +109,10 @@
             
           }
         }
+        xhr.send(null);
       };
       console.log(cur_eqs);
-      xhr.send(null);
+      
     }
 
 
