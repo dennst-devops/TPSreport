@@ -1,25 +1,31 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-    <title>Real Time Earthquakes</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./style/style.css">
-    
-  </head>
-  <body>
+
+<head>
+  <title>Real Time Earthquakes</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./style/style.css">
+
+</head>
+
+<body>
 
   <div id="container"></div>
 
   <div id="title">Real Time Earthquakes
   </div>
 
-  <div id="intro">The U.S. Geological Survey <a href="https://earthquake.usgs.gov/">(USGS)</a> estimates that <strong>500,000 detectable earthquakes occur in the world each year</strong>. Many more go undetected because they hit remote areas or have very small magnitudes. The National Earthquake Information Center (NEIC) locates an average of 50 earthquakes every day, or about 20,000 a year.
-  </div>
-
+  <div id="intro">
+    <h2>Reported earthquakes in the last 24 hours: <span id="EqCount"></span></h2>
+    The U.S. Geological Survey <a href="https://earthquake.usgs.gov/">(USGS)</a> estimates that <strong>500,000
+      detectable earthquakes occur in the world each year</strong>. Many more go undetected because they hit remote
+    areas or have very small magnitudes. The National Earthquake Information Center (NEIC) locates an average of 50
+    earthquakes every day, or about 20,000 a year.
   </div>
 
   <div id="info">
-  Created using: <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Data <a href="https://earthquake.usgs.gov/">USGS API</a>
+    Created using: <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span
+      class="bull">&bull;</span> Data <a href="https://earthquake.usgs.gov/">USGS API</a>
   </div>
 
   <script type="text/javascript" src="./third-party/Detector.js"></script>
@@ -30,84 +36,69 @@
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
 
-    if(!Detector.webgl){
+    if (!Detector.webgl) {
       Detector.addGetWebGLMessage();
     } else {
-      
-      var years = ['1990','1995','2000'];
+
+      var years = ['1990', '1995', '2000'];
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container);
 
       console.log(globe);
       var i, tweens = [];
-      
-      var settime = function(globe, t) {
-        return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+
+      var settime = function (globe, t) {
+        return function () {
+          new TWEEN.Tween(globe).to({ time: t / years.length }, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
         };
       };
-      
+
       var xhr;
       TWEEN.start();
-      
+
       //Vishnu 
       var socket = io(); //1
       displayPoints();
       socket.on('new_eq_data', function (data) { //4
-          console.log("Hello Socket", data); //5
-          // globe.addData(data, {format: 'magnitude', name: "long_lat", animated: true});
+        console.log("Hello Socket", data); //5
+        // globe.addData(data, {format: 'magnitude', name: "long_lat", animated: true});
 
-          displayPoints();
-          //socket.emit('thankyou', { msg: 'Thank you for connecting me! -Client' }); //6
-        });
-    //vishnu
-    function displayPoints(){
+        displayPoints();
+        //socket.emit('thankyou', { msg: 'Thank you for connecting me! -Client' }); //6
+      });
       //vishnu
-      console.log("In Display");
-      //vishnu
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', './earth_quakes.json', true);
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            window.data = data;
-            for (i=0;i<data.length;i++) {
-              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+      function displayPoints() {
+        //vishnu
+        console.log("In Display");
+        //vishnu
+        xhr = new XMLHttpRequest();
+        xhr.open('GET', './earth_quakes.json', true);
+        xhr.onreadystatechange = function (e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              var data = JSON.parse(xhr.responseText);
+              window.data = data;
+              // Extracting count of total earthquake from the data array
+              $("#EqCount").html(data[0][1].length / 3)
+
+              for (i = 0; i < data.length; i++) {
+                globe.addData(data[i][1], { format: 'magnitude', name: data[i][0], animated: true });
+              }
+              globe.createPoints();
+              settime(globe, 0)();
+              globe.animate();
+
+              document.body.style.backgroundImage = 'none'; // remove loading
             }
-            globe.createPoints();
-            settime(globe,0)();
-            globe.animate();
-            
-            document.body.style.backgroundImage = 'none'; // remove loading
           }
-        }
-      };
-      
-      xhr.send(null);
-    }
-      // xhr = new XMLHttpRequest();
-      // xhr.open('GET', './earth_quakes.json', true);
-      // xhr.onreadystatechange = function(e) {
-      //   if (xhr.readyState === 4) {
-      //     if (xhr.status === 200) {
-      //       var data = JSON.parse(xhr.responseText);
-      //       window.data = data;
-      //       for (i=0;i<data.length;i++) {
-      //         globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
-      //       }
-      //       globe.createPoints();
-      //       settime(globe,0)();
-      //       globe.animate();
-      //       document.body.style.backgroundImage = 'none'; // remove loading
-      //     }
-      //   }
-      // };
-      // xhr.send(null);
+        };
+
+        xhr.send(null);
+      }
     }
 
   </script>
 
-  </body>
+</body>
 
 </html>
