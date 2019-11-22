@@ -19,8 +19,9 @@ const fs = require('fs');
 
 io.on('connection',(socket) =>{
     console.log("connected");
+    
     setInterval(getEQData,60000);
-    //getEQData();
+    
     function getEQData(){
         console.log("hello ");
         long_lat = [];

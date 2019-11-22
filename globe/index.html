@@ -43,7 +43,7 @@
       var years = ['1990', '1995', '2000'];
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container);
-
+      var cur_eqs = 0;
       console.log(globe);
       var i, tweens = [];
 
@@ -60,12 +60,14 @@
       var socket = io(); //1
       displayPoints();
       socket.on('new_eq_data', function (data) { //4
-        console.log("Hello Socket", data); //5
-        // globe.addData(data, {format: 'magnitude', name: "long_lat", animated: true});
-
-        displayPoints();
-        //socket.emit('thankyou', { msg: 'Thank you for connecting me! -Client' }); //6
-      });
+        //displaying data
+          console.log("Hello Socket", data); //5
+          
+          cur_eqs = data.num_of_eqs;
+          displayPoints();
+          
+        });
+    
       //vishnu
       function displayPoints() {
         //vishnu
@@ -90,12 +92,25 @@
 
               document.body.style.backgroundImage = 'none'; // remove loading
             }
-          }
-        };
+            
+            globe.createPoints();
+            settime(globe,0)();
+            globe.animate();
+            //setting cur_eqs = Math.format(dat.length/3);
+            if (cur_eqs == 0){
+              cur_eqs = Math.floor(data.length/3);
+            }
+            
 
-        xhr.send(null);
-      }
+            document.body.style.backgroundImage = 'none'; // remove loading
+            
+          }
+        }
+      };
+      console.log(cur_eqs);
+      xhr.send(null);
     }
+
 
   </script>
 
